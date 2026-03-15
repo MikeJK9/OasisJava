@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import static java.lang.Math.abs;
+
 class Visitor
 {
 
@@ -55,9 +57,45 @@ public abstract class Expression
 
 
     //defined functions
-    public ArrayList<Expression> FindZeros(){
-        return null;
+    //TODO
+    public ArrayList<Expression> FindZeros()
+    {
+        ArrayList<Expression> results = new ArrayList<>();
+        ArrayList<Expression> termsE;
+        return results;
+
     }
+    long gcf(long a, long b){
+        if (b > a) {
+            long c = a;
+            a = b;
+            b = c;
+        }
+        while (true) {
+            a %= b;
+            if (a == 0) {
+                return b;
+            }
+            b %= a;
+            if (b == 0) {
+                return a;
+            }
+        }
+    }
+
+    ArrayList<Long> getAllFactors(long n)
+{
+    ArrayList<Long> answer = new ArrayList<>();
+    for (long i = 1; i * i <= n; i++) {
+    if (n % i == 0) {
+        answer.add(i);
+    }
+}
+    if (abs(n) != 1) {
+    answer.add(abs(n));
+}
+    return answer;
+}
     public <T extends Expression> boolean Is(){
         //return getType() == T;
         return false;
@@ -65,4 +103,16 @@ public abstract class Expression
     }
 
     //private functions
+    protected abstract void AcceptInternal(Visitor visitor);
+    public <T extends Visitor> Exception Accept(Visitor visitor){
+        return null;
+    }
+    /*
+    public <T extends Visitor>  Accept(Visitor visitor){
+        return null;
+    }*/
+
+
+
+
 }

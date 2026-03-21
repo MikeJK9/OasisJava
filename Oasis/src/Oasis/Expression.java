@@ -1,3 +1,5 @@
+package Oasis;
+
 import java.util.ArrayList;
 
 import static java.lang.Math.abs;
@@ -58,10 +60,21 @@ public abstract class Expression
 
     //defined functions
     //TODO
+    // currently only supports polynomials of one variable.
+    /**
+     * The FindZeros function finds all rational zeros of a polynomial. Currently assumes an expression of the form a+bx+cx^2+dx^3+... where a, b, c, d are a integers.
+     *
+     * @tparam origonalExpresion The expression for which all the factors will be found.
+     */
     public ArrayList<Expression> FindZeros()
     {
         ArrayList<Expression> results = new ArrayList<>();
-        ArrayList<Expression> termsE;
+        ArrayList<Expression> termsE = new ArrayList<>();
+        if (true/*auto addCase = RecursiveCast<Add<Expression>>(*this); addCase != nullptr*/) {
+            //addCase->Flatten(termsE);
+        } else {
+        termsE.add(Copy());
+    }
         return results;
 
     }
@@ -99,7 +112,7 @@ public abstract class Expression
     public <T extends Expression> boolean Is(){
         //return getType() == T;
         return false;
-        //TODO: implement binary and unary versions as well
+        //TODO: implement this, and binary and unary versions as well
     }
 
     //private functions

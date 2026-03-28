@@ -15,19 +15,19 @@ public class Methods <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends 
 
 
     //unary
-    public Optional<U> RecursiveCast(Concepts.IExpression other){
+    public Optional<U> RecursiveCast(U other){
         U dummy;
         return dummy;
     }
 
     //binary
-    public Optional<B> RecursiveCast(Concepts.IExpression other){
+    public Optional<B> RecursiveCast(B other){
         B dummy;
         return dummy;
     }
 
     //not unary or binary derived
-    public Optional<T> RecursiveCast(Concepts.IExpression other){
+    public Optional<T> RecursiveCast(T other){
         if(generalType.equals(other.getClass())){
             return Optional.of(generalType.cast(other)); // safe cast using class token
         }

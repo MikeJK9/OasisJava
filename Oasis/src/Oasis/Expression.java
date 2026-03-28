@@ -4,10 +4,7 @@ import java.util.ArrayList;
 
 import static java.lang.Math.abs;
 
-class Visitor
-{
 
-}
 enum ExpressionType{
     None,
     Real,
@@ -46,13 +43,13 @@ public abstract class Expression
 {
     //abstract functions
     public abstract Expression Copy();
-    public abstract Expression Differentiate();
+    public abstract Expression Differentiate(Expression differentiationVariable);
     public abstract boolean Equals();
     public abstract long getCategory();
     public abstract ExpressionType getType();
     public abstract Expression Generalize();
-    public abstract Expression Integrate();
-    public abstract Expression IntegrateWithBounds();
+    public abstract Expression Integrate(Expression integrationVariable);
+    public abstract Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper);
     public abstract Expression Simplify();
     public abstract boolean StructurallyEquivalent(Expression other);
     public abstract Expression Substitute(Expression var, Expression val);
@@ -116,7 +113,7 @@ public abstract class Expression
     }
 
     //private functions
-    protected abstract void AcceptInternal(Visitor visitor);
+    protected abstract Visit AcceptInternal(Visitor visitor);
     public <T extends Visitor> Exception Accept(Visitor visitor){
         return null;
     }

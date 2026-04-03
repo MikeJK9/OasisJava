@@ -45,11 +45,17 @@ public record Concepts() {
     public interface BinaryExpression<T extends IExpression, DerivedT extends IExpression,
             MostSigOpT extends IExpressionClass, LeastSigOpT extends IExpressionClass> {
 
+        Expression getMostSigOp();
+
+        Expression getLeastSigOp();
+
+        BinaryExpression<?,?,?,?> swapOperands();
     }
 
     public interface UnaryExpression<T extends IExpression, DerivedT extends IExpression,
             MostSigOpT extends IExpressionClass, LeastSigOpT extends IExpressionClass> {
 
+        Expression getOperand();
     }
 
     /*

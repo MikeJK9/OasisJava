@@ -25,16 +25,22 @@ public class Methods <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends 
     }
 
     private Optional<? extends Expression> castLeaf(Class<T> generalType, Expression other) {
-
+        if(generalType==Expression.class){
+            return Optional.of(other.Copy());
+        }
+        if(generalType.isInstance(other)){
+            return Optional.of(other.Copy());
+        }
         return Optional.empty();
     }
 
+
     private Optional<? extends Expression> castBinary(Class<B> binaryType, Expression other) {
+
         return Optional.empty();
     }
 
     private Optional<? extends Expression> castUnary(Class<U> unaryType, Expression other) {
-
         Expression otherGeneralized = other.Generalize();
         Expression opT = ((U)other).getOperand();
         U otherUnaryExpression = (U) otherGeneralized;
@@ -43,16 +49,6 @@ public class Methods <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends 
             return specializedOp;
         }
         return Optional.empty();
-
-        /*
-
-        const std::unique_ptr<Expression> otherGeneralized = other.Generalize();
-        const auto& otherUnaryExpression = static_cast<const DerivedT<Expression>&>(*otherGeneralized);
-        auto specializedOp = RecursiveCast<OpT>(otherUnaryExpression.GetOperand());
-        if (specializedOp) {
-            return std::make_unique<T>(*specializedOp);
-        }
-         */
     }
 
 

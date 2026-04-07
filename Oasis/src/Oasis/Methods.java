@@ -34,7 +34,25 @@ public class Methods <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends 
     }
 
     private Optional<? extends Expression> castUnary(Class<U> unaryType, Expression other) {
+
+        Expression otherGeneralized = other.Generalize();
+        Expression opT = ((U)other).getOperand();
+        U otherUnaryExpression = (U) otherGeneralized;
+        Optional<? extends Expression> specializedOp = recursiveCast(otherUnaryExpression.getOperand());
+        if(specializedOp != null){
+            return specializedOp;
+        }
         return Optional.empty();
+
+        /*
+
+        const std::unique_ptr<Expression> otherGeneralized = other.Generalize();
+        const auto& otherUnaryExpression = static_cast<const DerivedT<Expression>&>(*otherGeneralized);
+        auto specializedOp = RecursiveCast<OpT>(otherUnaryExpression.GetOperand());
+        if (specializedOp) {
+            return std::make_unique<T>(*specializedOp);
+        }
+         */
     }
 
 

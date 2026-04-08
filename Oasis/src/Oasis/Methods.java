@@ -36,7 +36,24 @@ public class Methods <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends 
 
 
     private Optional<? extends Expression> castBinary(Class<B> binaryType, Expression other) {
-
+        Expression otherGeneralized = other.Generalize();
+        B otherBinaryExpression = (B) otherGeneralized;
+        Expression specializedMostSigOp = otherBinaryExpression.getMostSigOp();
+        Expression specializedLeastSigOp = otherBinaryExpression.getLeastSigOp();
+        if (specializedLeastSigOp != null && specializedMostSigOp != null) {
+            //TODO: return std::make_unique<T>(*specializedMostSigOp, *specializedLeastSigOp);
+            return Optional.empty();
+        }
+        if (other.getCategory() != ExpressionCategory.Commutative.value) {
+            return Optional.empty();
+        }
+        B otherWithSwappedOps = otherBinaryExpression.SwapOperands();
+        specializedMostSigOp = otherWithSwappedOps.getMostSigOp();
+        specializedLeastSigOp = otherWithSwappedOps.getLeastSigOp();
+        if (specializedLeastSigOp != null && specializedMostSigOp != null) {
+            //TODO: return std::make_unique<T>(*specializedMostSigOp, *specializedLeastSigOp);
+            return Optional.empty();
+        }
         return Optional.empty();
     }
 

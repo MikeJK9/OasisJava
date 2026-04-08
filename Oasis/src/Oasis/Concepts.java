@@ -50,6 +50,8 @@ public record Concepts() {
         Expression getLeastSigOp();
 
         BinaryExpression<?,?,?,?> swapOperands();
+
+        <B extends BinaryExpression<?, ?, ?, ?>> B SwapOperands();
     }
 
     public interface UnaryExpression<T extends IExpression, DerivedT extends IExpression,

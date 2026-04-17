@@ -1,41 +1,36 @@
 package Oasis;
 import java.util.Optional;
 
-public class Methods <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends Concepts.BinaryExpression<?, ?, ?, ?>, T> {
-
-    private final Class<U> unaryType;
-    private final Class<B> binaryType;
-    private final Class<T> generalType;
-
-    public Methods(Class<U> unaryType, Class<B> binaryType, Class<T> generalType) {
-        this.unaryType = unaryType;
-        this.binaryType = binaryType;
-        this.generalType = generalType;
-    }
+public class Methods  <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends Concepts.BinaryExpression<?, ?, ?, ?>>{
 
 
-    public Optional<? extends Expression> recursiveCast(Expression other) {
-        if (unaryType.isInstance(other)) {
-            return castUnary(unaryType, other);
-        } else if (binaryType.isInstance(other)) {
-            return castBinary(binaryType, other);
+    public <T> T recursiveCast(Expression other, long Category) {
+        if (other.getCategory() == ExpressionCategory.UnExp.value) {
+            return castUnary(other, Category);
+        } else if (other.getCategory() == ExpressionCategory.BinExp.value) {
+            return castBinary(other, Category);
         } else {
-            return castLeaf(generalType, other);
+            return castOther(other, Category);
         }
     }
 
-    private Optional<? extends Expression> castLeaf(Class<T> generalType, Expression other) {
-        if(generalType==Expression.class){
-            return Optional.of(other.Copy());
+    private <T> T castOther(Expression other, long Category) {
+        if(other.getCategory() == Category){
+            return (T)other;
         }
-        if(generalType.isInstance(other)){
-            return Optional.of(other.Copy());
-        }
-        return Optional.empty();
+        return null;
+/*
+
+if constexpr (std::is_same_v<T, Expression>)
+        return other.Copy();
+    else
+        return other.Is<T>() ? std::make_unique<T>(dynamic_cast<const T&>(other)) : nullptr;
+ */
     }
 
 
-    private Optional<? extends Expression> castBinary(Class<B> binaryType, Expression other) {
+
+    private <T> T castBinary(Expression other, long Category) {
         Expression otherGeneralized = other.Generalize();
         B otherBinaryExpression = (B) otherGeneralized;
         Expression specializedMostSigOp = otherBinaryExpression.getMostSigOp();
@@ -57,15 +52,17 @@ public class Methods <U extends Concepts.UnaryExpression<?, ?, ?, ?>, B extends 
         return Optional.empty();
     }
 
-    private Optional<? extends Expression> castUnary(Class<U> unaryType, Expression other) {
+    private <T> T castUnary(Expression other, long Category) {
+        if(other.getCategory() != Category){
+            return null;
+        }
         Expression otherGeneralized = other.Generalize();
-        Expression opT = ((U)other).getOperand();
-        U otherUnaryExpression = (U) otherGeneralized;
-        Optional<? extends Expression> specializedOp = recursiveCast(otherUnaryExpression.getOperand());
+        var otherUnaryExpression = (U) otherGeneralized;
+        T specializedOp = recursiveCast(otherUnaryExpression.getOperand(), Category);
         if(specializedOp != null){
             return specializedOp;
         }
-        return Optional.empty();
+        return null;
     }
 
 

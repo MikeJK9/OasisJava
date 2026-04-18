@@ -42,22 +42,181 @@ public record Concepts() {
 
     }
 
-    public interface BinaryExpression<T extends IExpression, DerivedT extends IExpression,
-            MostSigOpT extends IExpressionClass, LeastSigOpT extends IExpressionClass> {
+    public class BinaryExpression<DerivedT extends Expression,
+            MostSigOpT extends Expression, LeastSigOpT extends Expression> extends Expression{
+        private MostSigOpT MostSigOp;
+        private LeastSigOpT LeastSigOp;
+        BinaryExpression(MostSigOpT mostSigOp, LeastSigOpT leastSigOp)
+        {
+            setMostSigOp(mostSigOp);
+            setLeastSigOp(leastSigOp);
+        }
+        MostSigOpT getMostSigOp(){
+            return MostSigOp;
+        }
 
-        Expression getMostSigOp();
+        LeastSigOpT getLeastSigOp(){
+            return LeastSigOp;
+        }
 
-        Expression getLeastSigOp();
+        void setMostSigOp(MostSigOpT e){
+            MostSigOp = e;
+        }
 
-        BinaryExpression<?,?,?,?> swapOperands();
+        void setLeastSigOp(LeastSigOpT e){
+            LeastSigOp = e;
+        }
 
-        <B extends BinaryExpression<?, ?, ?, ?>> B SwapOperands();
+        BinaryExpression<?,?,?> swapOperands(){
+            return new BinaryExpression<DerivedT, LeastSigOpT, MostSigOpT>(LeastSigOp,MostSigOp);
+        }
+
+        //TODO: implement the following
+        @Override
+        public Expression Copy() {
+            return null;
+        }
+
+        @Override
+        public Expression Differentiate(Expression differentiationVariable) {
+            return null;
+        }
+
+        @Override
+        public boolean Equals() {
+            return false;
+        }
+
+        @Override
+        public long getCategory() {
+            return 0;
+        }
+
+        @Override
+        public ExpressionType getType() {
+            return null;
+        }
+
+        @Override
+        public Expression Generalize() {
+            return null;
+        }
+
+        @Override
+        public Expression Integrate(Expression integrationVariable) {
+            return null;
+        }
+
+        @Override
+        public Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper) {
+            return null;
+        }
+
+        @Override
+        public Expression Simplify() {
+            return null;
+        }
+
+        @Override
+        public boolean StructurallyEquivalent(Expression other) {
+            return false;
+        }
+
+        @Override
+        public Expression Substitute(Expression var, Expression val) {
+            return null;
+        }
+
+        @Override
+        protected Visit AcceptInternal(Visitor visitor) {
+            return null;
+        }
     }
 
-    public interface UnaryExpression<T extends IExpression, DerivedT extends IExpression,
-            MostSigOpT extends IExpressionClass, LeastSigOpT extends IExpressionClass> {
+    public class UnaryExpression<DerivedT extends Expression, OpT extends Expression>
+            extends Expression{
+        private OpT operand;
+        UnaryExpression(){
 
-        Expression getOperand();
+        }
+        UnaryExpression(UnaryExpression other){
+            if(other.HasOperand()){
+                setOperand((OpT) other.operand);
+            }
+        }
+
+        OpT getOperand() {
+            return operand;
+        }
+        void setOperand(OpT e) {
+            operand = e;
+        }
+        boolean HasOperand(){
+            return operand!=null;
+        }
+
+
+        //TODO: implement the following
+
+        @Override
+        public Expression Copy() {
+            return null;
+        }
+
+        @Override
+        public Expression Differentiate(Expression differentiationVariable) {
+            return null;
+        }
+
+        @Override
+        public boolean Equals() {
+            return false;
+        }
+
+        @Override
+        public long getCategory() {
+            return 0;
+        }
+
+        @Override
+        public ExpressionType getType() {
+            return null;
+        }
+
+        @Override
+        public Expression Generalize() {
+            return null;
+        }
+
+        @Override
+        public Expression Integrate(Expression integrationVariable) {
+            return null;
+        }
+
+        @Override
+        public Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper) {
+            return null;
+        }
+
+        @Override
+        public Expression Simplify() {
+            return null;
+        }
+
+        @Override
+        public boolean StructurallyEquivalent(Expression other) {
+            return false;
+        }
+
+        @Override
+        public Expression Substitute(Expression var, Expression val) {
+            return null;
+        }
+
+        @Override
+        protected Visit AcceptInternal(Visitor visitor) {
+            return null;
+        }
     }
 
     /*
@@ -74,11 +233,11 @@ public record Concepts() {
         return false;
     }
 
-    public static <T extends BinaryExpression<?, ?, ?, ?>> boolean derivedFromBinaryExpression(T obj) {
+    public static <T extends BinaryExpression<?, ?, ?>> boolean derivedFromBinaryExpression(T obj) {
         return true;
     }
 
-    public static <T extends UnaryExpression<?, ?, ?, ?>> boolean derivedFromUnaryExpression(T obj) {
+    public static <T extends UnaryExpression<?, ?>> boolean derivedFromUnaryExpression(T obj) {
         return true; // if it compiles, the constraint is satisfied
     }
 

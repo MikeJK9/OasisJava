@@ -9,6 +9,11 @@ public class BinaryExpression<DerivedT extends Expression,
         setMostSigOp(mostSigOp);
         setLeastSigOp(leastSigOp);
     }
+    BinaryExpression(BinaryExpression<Expression, MostSigOpT, LeastSigOpT> binExp)
+    {
+        setMostSigOp(binExp.MostSigOp);
+        setLeastSigOp(binExp.LeastSigOp);
+    }
     MostSigOpT getMostSigOp(){
         return MostSigOp;
     }

@@ -4,7 +4,7 @@ public class Add <AugendT extends Expression, AddendT extends Expression> extend
     AugendT Augend;
     AddendT Addend;
 
-    Add(AugendT mostSigOp, AddendT leastSigOp) {
+    public Add(AugendT mostSigOp, AddendT leastSigOp) {
         super(mostSigOp, leastSigOp);
     }
     Add(BinaryExpression<?, ? extends AugendT, ? extends AddendT> binExp){
@@ -56,7 +56,7 @@ public class Add <AugendT extends Expression, AddendT extends Expression> extend
 
         }
 
-
+        return this;
         //simplify expressions and combine like terms:
     }
 

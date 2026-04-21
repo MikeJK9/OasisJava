@@ -1,6 +1,8 @@
 package Oasis;
 
-public class Variable extends LeafExpression{
+public class Variable extends Expression{
+    ExpressionType Type = ExpressionType.Variable;
+    ExpressionCategory Cat = ExpressionCategory.UnExp;
     String _name;
     public Variable(String name){
         _name = name;
@@ -19,10 +21,57 @@ public class Variable extends LeafExpression{
     public Expression Integrate(Expression integrationVariable){
         return null;
     }
+
+    @Override
+    public Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper) {
+        return null;
+    }
+
+    @Override
+    public Expression Simplify() {
+        return null;
+    }
+
+    @Override
+    public boolean StructurallyEquivalent(Expression other) {
+        return false;
+    }
+
+    @Override
+    public Expression Copy() {
+        return null;
+    }
+
     public Expression Differentiate(Expression differentiationVariable){
         return null;
     }
+
+    @Override
+    public boolean Equals() {
+        return false;
+    }
+
+    @Override
+    public long getCategory() {
+        return Cat.value;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return Type;
+    }
+
+    @Override
+    public Expression Generalize() {
+        return null;
+    }
+
     public Expression Substitute(Expression var, Expression val){
+        return null;
+    }
+
+    @Override
+    protected Visit AcceptInternal(Visitor visitor) {
         return null;
     }
 }

@@ -37,16 +37,6 @@ public class Real extends Expression{
     }
 
     @Override
-    public long getCategory() {
-        return 0;
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return null;
-    }
-
-    @Override
     public Expression Generalize() {
         return null;
     }

@@ -4,6 +4,8 @@ public class BinaryExpression<DerivedT extends Expression,
         MostSigOpT extends Expression, LeastSigOpT extends Expression> extends Expression{
     private MostSigOpT MostSigOp;
     private LeastSigOpT LeastSigOp;
+    ExpressionType Type = ExpressionType.None;
+    ExpressionCategory Cat = ExpressionCategory.BinExp;
     BinaryExpression(){
 
     }

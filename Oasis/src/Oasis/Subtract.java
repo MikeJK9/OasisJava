@@ -1,39 +1,39 @@
 package Oasis;
 import Oasis.Methods;
-public class Subtract <AugendT extends Expression, AddendT extends Expression> extends BinaryExpression<Add<?,?>, AugendT, AddendT> {
-    AugendT Augend;
-    AddendT Addend;
+public class Subtract <MinuendT extends Expression, SubtruendT extends Expression> extends BinaryExpression<Subtract<?,?>, MinuendT, SubtruendT> {
+    ExpressionType Type = ExpressionType.Subtract;
+    ExpressionCategory Cat = ExpressionCategory.BinExp;
 
-    public Subtract(AugendT mostSigOp, AddendT leastSigOp) {
+    public Subtract(MinuendT mostSigOp, SubtruendT leastSigOp) {
         super(mostSigOp, leastSigOp);
     }
-    Subtract(BinaryExpression<?, ? extends AugendT, ? extends AddendT> binExp){
+    Subtract(BinaryExpression<?, ? extends MinuendT, ? extends SubtruendT> binExp){
         super(binExp);
     }
 
     public Expression Simplify(){
-        Expression SimplifiedAugend;
-        Expression SimplifiedAddend;
+        Expression SimplifiedMinuend;
+        Expression SimplifiedSubtruend;
         if(getMostSigOp() != null) {
-            SimplifiedAugend = getMostSigOp().Simplify();
+            SimplifiedMinuend = getMostSigOp().Simplify();
         }
         else{
-            SimplifiedAugend = null;
+            SimplifiedMinuend = null;
         }
         if(getLeastSigOp() != null) {
-            SimplifiedAddend = getLeastSigOp().Simplify();
+            SimplifiedSubtruend = getLeastSigOp().Simplify();
         }
         else{
-            SimplifiedAddend = null;
+            SimplifiedSubtruend= null;
         }
-        Subtract<Expression,Expression> SimplifiedSubtract = new Subtract<Expression,Expression>(SimplifiedAugend, SimplifiedAddend);
+        Subtract<Expression,Expression> SimplifiedSubtract = new Subtract<Expression,Expression>(SimplifiedMinuend, SimplifiedSubtruend);
 
         Methods<UnaryExpression<Expression, Expression>, BinaryExpression<Expression, Expression, Expression>> m = new Methods<>();
         BinaryExpression<Expression, Real, Real> realCase = m.recursiveCast(SimplifiedSubtract, ExpressionCategory.BinExp.value);
         if(realCase != null){
-            Real augend = realCase.getMostSigOp();
-            Real addend = realCase.getLeastSigOp();
-            return new Real(augend._value-addend._value);
+            Real minuend = realCase.getMostSigOp();
+            Real subtruend = realCase.getLeastSigOp();
+            return new Real(minuend._value-subtruend._value);
         }
 
         BinaryExpression<Expression, Real, Expression> zeroCase = m.recursiveCast(SimplifiedSubtract, ExpressionCategory.BinExp.value);

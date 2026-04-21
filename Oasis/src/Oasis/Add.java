@@ -1,8 +1,8 @@
 package Oasis;
 import Oasis.Methods;
 public class Add <AugendT extends Expression, AddendT extends Expression> extends BinaryExpression<Add<?,?>, AugendT, AddendT> {
-    AugendT Augend;
-    AddendT Addend;
+    ExpressionType Type = ExpressionType.Add;
+    ExpressionCategory Cat = ExpressionCategory.BinExp;
 
     public Add(AugendT mostSigOp, AddendT leastSigOp) {
         super(mostSigOp, leastSigOp);

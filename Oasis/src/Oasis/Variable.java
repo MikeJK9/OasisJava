@@ -51,15 +51,6 @@ public class Variable extends Expression{
         return false;
     }
 
-    @Override
-    public long getCategory() {
-        return Cat.value;
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return Type;
-    }
 
     @Override
     public Expression Generalize() {
@@ -67,7 +58,17 @@ public class Variable extends Expression{
     }
 
     public Expression Substitute(Expression var, Expression val){
-        return null;
+        Methods<UnaryExpression<Expression, Expression>, BinaryExpression<Expression, Expression, Expression>> m = new Methods<>();
+
+        Variable varClone = m.recursiveCast(var, Cat.value);
+        if(varClone == null){
+            System.out.println("Variable was not a variable.");
+            return null;
+        }
+        if (varClone.GetName().equals(GetName())) {
+            return val.Copy();
+        }
+        return Copy();
     }
 
     @Override

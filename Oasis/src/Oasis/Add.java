@@ -40,9 +40,32 @@ public class Add <AugendT extends Expression, AddendT extends Expression> extend
         if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
             return zeroCase.getLeastSigOp().Generalize();
         }
-        if(true/*LIKE TERMS CASE*/){
-
+        Add<Multiply<Real, Expression>, Multiply<Real, Expression>> likeTermsCase = m.recursiveCast(SimplifiedAdd, ExpressionCategory.BinExp.value);
+        if(likeTermsCase != null){
+            Expression leftTerm = likeTermsCase.getMostSigOp().getLeastSigOp();
+            Expression rightTerm = likeTermsCase.getLeastSigOp().getLeastSigOp();
+            if(leftTerm == rightTerm){
+                Real coefficient1 = likeTermsCase.getMostSigOp().getMostSigOp();
+                Real coefficient2 = likeTermsCase.getLeastSigOp().getMostSigOp();
+                return new Multiply<Expression, Real>(leftTerm, new Real(coefficient1._value+coefficient2._value));
+            }
         }
+        /*
+
+        if (auto likeTermsCase = RecursiveCast<Add<Multiply<Real, Expression>>>(simplifiedAdd); likeTermsCase != nullptr) {
+            const Oasis::IExpression auto& leftTerm = likeTermsCase->GetMostSigOp().GetLeastSigOp();
+            const Oasis::IExpression auto& rightTerm = likeTermsCase->GetLeastSigOp().GetLeastSigOp();
+
+            if (leftTerm.Equals(rightTerm)) {
+                const Real& coefficient1 = likeTermsCase->GetMostSigOp().GetMostSigOp();
+                const Real& coefficient2 = likeTermsCase->GetLeastSigOp().GetMostSigOp();
+
+                return std::make_unique<Multiply<Expression>>(Real(coefficient1.GetValue() + coefficient2.GetValue()), leftTerm);
+            }
+        }
+
+         */
+
         if(true/*MATRIX PLUS MATRIX CASE*/){
 
         }

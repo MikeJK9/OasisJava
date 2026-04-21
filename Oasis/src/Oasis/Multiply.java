@@ -43,6 +43,7 @@ public class Multiply <MultiplicandT extends Expression, MultiplierT extends Exp
         if(true/*LIKE TERMS CASE*/){
 
         }
+
         if(true/*MATRIX PLUS MATRIX CASE*/){
 
         }

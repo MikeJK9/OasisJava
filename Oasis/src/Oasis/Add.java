@@ -26,7 +26,7 @@ public class Add <AugendT extends Expression, AddendT extends Expression> extend
         else{
             SimplifiedAddend = null;
         }
-        Add<Expression,Expression> SimplifiedAdd = new Add<Expression,Expression>(SimplifiedAddend, SimplifiedAddend);
+        Add<Expression,Expression> SimplifiedAdd = new Add<Expression,Expression>(SimplifiedAugend, SimplifiedAddend);
 
         Methods<UnaryExpression<Expression, Expression>, BinaryExpression<Expression, Expression, Expression>> m = new Methods<>();
         BinaryExpression<Expression, Real, Real> realCase = m.recursiveCast(SimplifiedAdd, ExpressionCategory.BinExp.value);
@@ -36,9 +36,9 @@ public class Add <AugendT extends Expression, AddendT extends Expression> extend
             return new Real(augend._value+addend._value);
         }
 
-
-        if(true/*ZERO CASE*/){
-
+        BinaryExpression<Expression, Real, Expression> zeroCase = m.recursiveCast(SimplifiedAdd, ExpressionCategory.BinExp.value);
+        if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
+            return zeroCase.getLeastSigOp().Generalize();
         }
         if(true/*LIKE TERMS CASE*/){
 

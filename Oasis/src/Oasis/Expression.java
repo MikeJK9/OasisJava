@@ -41,6 +41,8 @@ enum ExpressionCategory {
 
 public abstract class Expression
 {
+    ExpressionType Type = ExpressionType.None;
+    ExpressionCategory Cat = ExpressionCategory.None;
     //abstract functions
     public abstract Expression Copy();
     public abstract Expression Differentiate(Expression differentiationVariable);

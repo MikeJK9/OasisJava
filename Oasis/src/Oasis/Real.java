@@ -1,6 +1,9 @@
 package Oasis;
 
 public class Real extends Expression{
+    ExpressionType Type = ExpressionType.Real;
+    ExpressionCategory Cat = ExpressionCategory.UnExp;
+
     double _value;
     public Real(double value){
         _value = value;

@@ -1,6 +1,8 @@
 package Oasis;
 
-public class Imaginary extends LeafExpression{
+public class Imaginary extends Expression{
+    ExpressionType Type = ExpressionType.Imaginary;
+    ExpressionCategory Cat = ExpressionCategory.UnExp;
     public Imaginary(){
         //todo- constructor
     }
@@ -10,6 +12,66 @@ public class Imaginary extends LeafExpression{
 
     public boolean Equals(Expression other){
         return other.getType().equals(ExpressionType.Imaginary);
+    }
+
+    @Override
+    public Expression Copy() {
+        return new Imaginary();
+    }
+
+    @Override
+    public Expression Differentiate(Expression differentiationVariable) {
+        return null;
+    }
+
+    @Override
+    public boolean Equals() {
+        return false;
+    }
+
+    @Override
+    public long getCategory() {
+        return 0;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return null;
+    }
+
+    @Override
+    public Expression Generalize() {
+        return null;
+    }
+
+    @Override
+    public Expression Integrate(Expression integrationVariable) {
+        return null;
+    }
+
+    @Override
+    public Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper) {
+        return null;
+    }
+
+    @Override
+    public Expression Simplify() {
+        return null;
+    }
+
+    @Override
+    public boolean StructurallyEquivalent(Expression other) {
+        return false;
+    }
+
+    @Override
+    public Expression Substitute(Expression var, Expression val) {
+        return null;
+    }
+
+    @Override
+    protected Visit AcceptInternal(Visitor visitor) {
+        return null;
     }
 
     /*

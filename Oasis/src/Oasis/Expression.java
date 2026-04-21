@@ -25,7 +25,7 @@ public abstract class Expression
     //abstract functions
     public abstract Expression Copy();
     public abstract Expression Differentiate(Expression differentiationVariable);
-    public abstract boolean Equals();
+    public abstract boolean Equals(Expression other);
     public long getCategory(){
         return Cat.value;
     }

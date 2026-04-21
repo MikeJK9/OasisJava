@@ -51,7 +51,13 @@ public class BinaryExpression<DerivedT extends Expression,
     }
 
     @Override
-    public boolean Equals() {
+    public boolean Equals(Expression other) {
+        if(other.getType() != getType()){
+            return false;
+        }
+
+        Expression otherGeneralized = other.Generalize();
+
         return false;
     }
 

@@ -8,6 +8,8 @@ public class Variable extends Expression{
         _name = name;
         //todo: check if we need to move name like in original c++ code
     }
+
+    @Override
     public boolean Equals(Expression other){
         if(other instanceof Variable){
             return ((Variable)other)._name.equals(_name);
@@ -46,10 +48,6 @@ public class Variable extends Expression{
         return null;
     }
 
-    @Override
-    public boolean Equals() {
-        return false;
-    }
 
 
     @Override

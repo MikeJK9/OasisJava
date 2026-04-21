@@ -36,18 +36,14 @@ public class UnaryExpression<DerivedT extends Expression, OpT extends Expression
     }
 
     @Override
-    public boolean Equals() {
-        return false;
-    }
+    public boolean Equals(Expression other) {
+        if(other.getType() != getType()){
+            return false;
+        }
 
-    @Override
-    public long getCategory() {
-        return 0;
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return null;
+        Expression otherGeneralized = other.Generalize();
+        UnaryExpression<DerivedT, OpT> otherUnaryGeneralized = (UnaryExpression<DerivedT, OpT>)otherGeneralized;
+        return operand == otherUnaryGeneralized.operand;
     }
 
     @Override

@@ -11,6 +11,8 @@ public class Real extends Expression{
     public Real Differentiate(){
         return new Real(0);
     }
+
+    @Override
     public boolean Equals(Expression other){
         if(other instanceof Real){
             return ((Real)other)._value == _value;
@@ -29,11 +31,6 @@ public class Real extends Expression{
     @Override
     public Expression Differentiate(Expression differentiationVariable) {
         return null;
-    }
-
-    @Override
-    public boolean Equals() {
-        return false;
     }
 
     @Override

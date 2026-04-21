@@ -10,6 +10,7 @@ public class Imaginary extends Expression{
         //todo- copy constructor
     }
 
+    @Override
     public boolean Equals(Expression other){
         return other.getType().equals(ExpressionType.Imaginary);
     }
@@ -22,11 +23,6 @@ public class Imaginary extends Expression{
     @Override
     public Expression Differentiate(Expression differentiationVariable) {
         return null;
-    }
-
-    @Override
-    public boolean Equals() {
-        return false;
     }
 
     @Override

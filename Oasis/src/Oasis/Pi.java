@@ -12,6 +12,8 @@ public class Pi extends Expression{
     public double getValue(){
         return Math.PI;
     }
+
+    @Override
     public boolean Equals(Expression other){
         return other.getType().equals(ExpressionType.Pi);
     }
@@ -26,10 +28,6 @@ public class Pi extends Expression{
         return null;
     }
 
-    @Override
-    public boolean Equals() {
-        return false;
-    }
 
     @Override
     public long getCategory() {

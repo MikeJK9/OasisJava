@@ -13,7 +13,7 @@ public class LeafExpression <DerivedT> extends Expression{
     }
 
     @Override
-    public boolean Equals() {
+    public boolean Equals(Expression other) {
         //TODO
         return false;
     }

@@ -5,13 +5,13 @@ import java.util.Optional;
 public class Methods  <U extends UnaryExpression<?, ?>, B extends BinaryExpression<?, ?, ?>>{
 
     //determine if we're casting from binary, unary, or other into Type T
-    public <T> T recursiveCast(Expression other, long Category) {
+    public <T> T recursiveCast(Expression other, long DesiredCategory) {
         if (other.getCategory() == ExpressionCategory.UnExp.value) {
-            return castUnary(other, Category);
+            return castUnary(other, DesiredCategory);
         } else if (other.getCategory() == ExpressionCategory.BinExp.value) {
-            return castBinary(other, Category);
+            return castBinary(other, DesiredCategory);
         } else {
-            return castOther(other, Category);
+            return castOther(other, DesiredCategory);
         }
     }
 

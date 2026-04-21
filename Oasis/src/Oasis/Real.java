@@ -1,6 +1,6 @@
 package Oasis;
 
-public class Real extends LeafExpression{
+public class Real extends Expression{
     double _value;
     public Real(double value){
         _value = value;
@@ -17,8 +17,64 @@ public class Real extends LeafExpression{
     public double GetValue(){
         return _value;
     }
+
+    @Override
+    public Expression Copy() {
+        return null;
+    }
+
+    @Override
+    public Expression Differentiate(Expression differentiationVariable) {
+        return null;
+    }
+
+    @Override
+    public boolean Equals() {
+        return false;
+    }
+
+    @Override
+    public long getCategory() {
+        return 0;
+    }
+
+    @Override
+    public ExpressionType getType() {
+        return null;
+    }
+
+    @Override
+    public Expression Generalize() {
+        return null;
+    }
+
     //todo: finish integrate
     public Expression Integrate(Expression integrationVariable){
+        return null;
+    }
+
+    @Override
+    public Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper) {
+        return null;
+    }
+
+    @Override
+    public Expression Simplify() {
+        return null;
+    }
+
+    @Override
+    public boolean StructurallyEquivalent(Expression other) {
+        return false;
+    }
+
+    @Override
+    public Expression Substitute(Expression var, Expression val) {
+        return null;
+    }
+
+    @Override
+    protected Visit AcceptInternal(Visitor visitor) {
         return null;
     }
 

@@ -4,12 +4,15 @@ public class BinaryExpression<DerivedT extends Expression,
         MostSigOpT extends Expression, LeastSigOpT extends Expression> extends Expression{
     private MostSigOpT MostSigOp;
     private LeastSigOpT LeastSigOp;
+    BinaryExpression(){
+
+    }
     BinaryExpression(MostSigOpT mostSigOp, LeastSigOpT leastSigOp)
     {
         setMostSigOp(mostSigOp);
         setLeastSigOp(leastSigOp);
     }
-    BinaryExpression(BinaryExpression<Expression, MostSigOpT, LeastSigOpT> binExp)
+    BinaryExpression(BinaryExpression<?, ? extends MostSigOpT, ? extends LeastSigOpT> binExp)
     {
         setMostSigOp(binExp.MostSigOp);
         setLeastSigOp(binExp.LeastSigOp);

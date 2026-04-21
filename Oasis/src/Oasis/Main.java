@@ -1,4 +1,3 @@
-import Oasis.Expression;
 import Oasis.*;
 
 void main() {
@@ -11,6 +10,10 @@ void main() {
     System.out.println("Real 0 == Real 1?");
     assert (!R0.Equals(R1));
     System.out.println("false.");
+
+    System.out.println("Type of R0 == Real?");
+    assert (R0.getType() == ExpressionType.Real);
+    System.out.println("true.");
 
 
     System.out.println("\nTesting Addition:");

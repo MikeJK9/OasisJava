@@ -5,27 +5,6 @@ import java.util.ArrayList;
 import static java.lang.Math.abs;
 
 
-enum ExpressionType{
-    None,
-    Real,
-    Imaginary,
-    Variable,
-    Add,
-    Subtract,
-    Multiply,
-    Divide,
-    Exponent,
-    Log,
-    Integral,
-    Limit,
-    Derivative,
-    Negate,
-    Sqrt,
-    Matrix,
-    Pi,
-    EulerNumber,
-    Magnitude
-}
 
 enum ExpressionCategory {
     None (0),
@@ -47,8 +26,12 @@ public abstract class Expression
     public abstract Expression Copy();
     public abstract Expression Differentiate(Expression differentiationVariable);
     public abstract boolean Equals();
-    public abstract long getCategory();
-    public abstract ExpressionType getType();
+    public long getCategory(){
+        return Cat.value;
+    }
+    public ExpressionType getType(){
+        return Type;
+    }
     public abstract Expression Generalize();
     public abstract Expression Integrate(Expression integrationVariable);
     public abstract Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper);

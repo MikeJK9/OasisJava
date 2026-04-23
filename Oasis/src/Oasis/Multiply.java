@@ -31,9 +31,9 @@ public class Multiply <MultiplicandT extends Expression, MultiplierT extends Exp
         Methods<UnaryExpression<Expression, Expression>, BinaryExpression<Expression, Expression, Expression>> m = new Methods<>();
         BinaryExpression<Expression, Real, Real> realCase = m.recursiveCast(SimplifiedMult, ExpressionCategory.BinExp.value);
         if(realCase != null){
-            Real augend = realCase.getMostSigOp();
-            Real addend = realCase.getLeastSigOp();
-            return new Real(augend._value*addend._value);
+            Real multiplicand = realCase.getMostSigOp();
+            Real multiplier = realCase.getLeastSigOp();
+            return new Real(multiplicand._value*multiplier._value);
         }
 
         BinaryExpression<Expression, Real, Expression> zeroCase = m.recursiveCast(SimplifiedMult, ExpressionCategory.BinExp.value);

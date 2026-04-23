@@ -40,8 +40,15 @@ public class Subtract <MinuendT extends Expression, SubtruendT extends Expressio
         if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
             return zeroCase.getLeastSigOp().Generalize();
         }
-        if(true/*LIKE TERMS CASE*/){
-
+        Subtract<Multiply<Real, Expression>, Multiply<Real, Expression>> likeTermsCase = m.recursiveCast(SimplifiedSubtract, ExpressionCategory.BinExp.value);
+        if(likeTermsCase != null){
+            Expression leftTerm = likeTermsCase.getMostSigOp().getLeastSigOp();
+            Expression rightTerm = likeTermsCase.getLeastSigOp().getLeastSigOp();
+            if(leftTerm == rightTerm){
+                Real coefficient1 = likeTermsCase.getMostSigOp().getMostSigOp();
+                Real coefficient2 = likeTermsCase.getLeastSigOp().getMostSigOp();
+                return new Multiply<Expression, Real>(leftTerm, new Real(coefficient1._value-coefficient2._value));
+            }
         }
         if(true/*MATRIX PLUS MATRIX CASE*/){
 

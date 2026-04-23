@@ -37,12 +37,22 @@ void main() {
     Multiply<Real, Variable> x3 = new Multiply<>(new Real(3), new Variable("X"));
 
     Add<Multiply<Real, Variable>, Multiply<Real, Variable>> a4 = new Add<Multiply<Real, Variable>, Multiply<Real, Variable>>(x1, x2);
-    System.out.println("\n Adding like terms:");
+    System.out.println("\nAdding like terms: X + 2X = 3X?");
     assert (((Multiply<Real, Variable>)a4.Simplify()).Equals(x3));
+    System.out.println("true");
+
+
     System.out.println("\nTesting Subtraction:");
 
     Subtract<Real, Real> s1 = new Subtract<>(R1, R1);
     System.out.println("1-1=0?");
     assert (((Real)s1.Simplify()).Equals(R0));
     System.out.println("true.");
+
+    Subtract<Multiply<Real, Variable>, Multiply<Real, Variable>> s2 = new Subtract<>(x3, x2);
+    System.out.println("\nSubtracting like terms: 3X - 2X = X?");
+    assert (((Multiply<Real, Variable>)s2.Simplify()).Equals(x1));
+    System.out.println("true");
+
+
 }

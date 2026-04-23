@@ -9,7 +9,7 @@ public class Negate<OperandT extends Expression> extends UnaryExpression<Negate<
     Negate(Negate<OperandT> other){
         setOperand(other.getOperand());
     }
-    Negate(OperandT operand){
+    public Negate(OperandT operand){
         setOperand(operand);
     }
 

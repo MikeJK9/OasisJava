@@ -77,6 +77,12 @@ void main() {
     assert (((Real)m1.Simplify()).Equals(R2));
     System.out.println("true.");
 
+    Real Rn1 = new Real(-1);
+    Negate<Real> n1 = new Negate<>(R1);
+    System.out.println("-(1) = -1?");
+    assert (((Real)n1.Simplify()).Equals(Rn1));
+    System.out.println("true.");
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     System.out.println("\nTesting Division:");

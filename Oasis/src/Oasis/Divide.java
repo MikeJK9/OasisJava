@@ -33,10 +33,12 @@ public class Divide <DividendT extends Expression, DivisorT extends Expression> 
         if(realCase != null){
             Real dividend = realCase.getMostSigOp();
             Real divisor = realCase.getLeastSigOp();
+            if(divisor._value == 0){
+                return new Real(Double.MAX_VALUE);
+            }
             return new Real(dividend._value/divisor._value);
         }
 
-        //TODO: divide by zero error
         BinaryExpression<Expression, Real, Expression> zeroCase = m.recursiveCast(SimplifiedDiv, ExpressionCategory.BinExp.value);
         if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
             return new Real(0);

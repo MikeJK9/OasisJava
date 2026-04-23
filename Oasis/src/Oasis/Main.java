@@ -3,6 +3,9 @@ import Oasis.*;
 void main() {
 
     System.out.println("Hello World!");
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     Real R0 = new Real(0);
     Real R1 = new Real(1);
     Real R2 = new Real(2);
@@ -15,6 +18,7 @@ void main() {
     assert (R0.getType() == ExpressionType.Real);
     System.out.println("true.");
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     System.out.println("\nTesting Addition:");
 
@@ -41,6 +45,7 @@ void main() {
     assert (((Multiply<Real, Variable>)a4.Simplify()).Equals(x3));
     System.out.println("true");
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     System.out.println("\nTesting Subtraction:");
 
@@ -53,6 +58,29 @@ void main() {
     System.out.println("\nSubtracting like terms: 3X - 2X = X?");
     assert (((Multiply<Real, Variable>)s2.Simplify()).Equals(x1));
     System.out.println("true");
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    System.out.println("\nTesting Multiplication:");
+    Multiply<Real, Real> m1 = new Multiply<>(R1, R1);
+    System.out.println("1*1=1?");
+    assert (((Real)m1.Simplify()).Equals(R1));
+    System.out.println("true.");
+    Multiply<Real, Real> m2 = new Multiply<>(R1, R0);
+    System.out.println("1*0=0?");
+    assert (((Real)m2.Simplify()).Equals(R0));
+    System.out.println("true.");
+    Multiply<Real, Real> m3 = new Multiply<>(R2, R1);
+    System.out.println("2*1=2?");
+    assert (((Real)m1.Simplify()).Equals(R2));
+    System.out.println("true.");
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    System.out.println("\nTesting Division:");
+
 
 
 }

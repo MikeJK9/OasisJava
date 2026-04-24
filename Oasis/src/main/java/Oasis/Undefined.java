@@ -17,6 +17,12 @@ public class Undefined extends Expression{
 
     @Override
     public boolean Equals(Expression other) {
+        if(other instanceof Undefined) {
+            return true;
+        }
+        if(other instanceof Real){
+            return (((Real) other)._value == Double.MAX_VALUE);
+        }
         return false;
     }
 

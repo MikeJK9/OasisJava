@@ -43,6 +43,10 @@ public class Divide <DividendT extends Expression, DivisorT extends Expression> 
         if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
             return new Real(0);
         }
+        BinaryExpression<?, Expression, Real> divByZeroCase = m.recursiveCast(SimplifiedDiv, Expression.class, Real.class);
+        if(divByZeroCase != null && divByZeroCase.getLeastSigOp()._value == 0){
+            return new Real(Double.MAX_VALUE);
+        }
         if(true/*LIKE TERMS CASE*/){
 
         }

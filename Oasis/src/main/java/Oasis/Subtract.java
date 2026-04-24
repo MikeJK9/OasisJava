@@ -1,11 +1,11 @@
 package Oasis;
 import Oasis.Methods;
 public class Subtract <MinuendT extends Expression, SubtruendT extends Expression> extends BinaryExpression<Subtract<?,?>, MinuendT, SubtruendT> {
-    ExpressionType Type = ExpressionType.Subtract;
-    ExpressionCategory Cat = ExpressionCategory.BinExp;
+
 
     public Subtract(MinuendT mostSigOp, SubtruendT leastSigOp) {
-        super(mostSigOp, leastSigOp);
+        super(mostSigOp, leastSigOp, ExpressionType.Subtract, ExpressionCategory.BinExp);
+
     }
     Subtract(BinaryExpression<?, ? extends MinuendT, ? extends SubtruendT> binExp){
         super(binExp);
@@ -29,25 +29,25 @@ public class Subtract <MinuendT extends Expression, SubtruendT extends Expressio
         Subtract<Expression,Expression> SimplifiedSubtract = new Subtract<Expression,Expression>(SimplifiedMinuend, SimplifiedSubtruend);
 
         Methods<UnaryExpression<Expression, Expression>, BinaryExpression<Expression, Expression, Expression>> m = new Methods<>();
-        BinaryExpression<Expression, Real, Real> realCase = m.recursiveCast(SimplifiedSubtract, ExpressionCategory.BinExp.value);
+        BinaryExpression<?, Real, Real> realCase = m.recursiveCast(SimplifiedSubtract, Real.class, Real.class);
         if(realCase != null){
             Real minuend = realCase.getMostSigOp();
             Real subtruend = realCase.getLeastSigOp();
             return new Real(minuend._value-subtruend._value);
         }
 
-        BinaryExpression<Expression, Real, Expression> zeroCase = m.recursiveCast(SimplifiedSubtract, ExpressionCategory.BinExp.value);
+        BinaryExpression<?, Real, Expression> zeroCase = m.recursiveCast(SimplifiedSubtract, Real.class, Expression.class);
         if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
             return zeroCase.getLeastSigOp().Generalize();
         }
-        Subtract<Multiply<Real, Expression>, Multiply<Real, Expression>> likeTermsCase = m.recursiveCast(SimplifiedSubtract, ExpressionCategory.BinExp.value);
+        BinaryExpression<?, Multiply, Multiply>  likeTermsCase = m.recursiveCast(SimplifiedSubtract, Multiply.class, Multiply.class);
         if(likeTermsCase != null){
             Expression leftTerm = likeTermsCase.getMostSigOp().getLeastSigOp();
             Expression rightTerm = likeTermsCase.getLeastSigOp().getLeastSigOp();
-            if(leftTerm == rightTerm){
-                Real coefficient1 = likeTermsCase.getMostSigOp().getMostSigOp();
-                Real coefficient2 = likeTermsCase.getLeastSigOp().getMostSigOp();
-                return new Multiply<Expression, Real>(leftTerm, new Real(coefficient1._value-coefficient2._value));
+            if(leftTerm.Equals(rightTerm)){
+                Real coefficient1 = (Real) likeTermsCase.getMostSigOp().getMostSigOp();
+                Real coefficient2 = (Real) likeTermsCase.getLeastSigOp().getMostSigOp();
+                return new Multiply<>(new Real(coefficient1._value-coefficient2._value), leftTerm);
             }
         }
         if(true/*MATRIX PLUS MATRIX CASE*/){

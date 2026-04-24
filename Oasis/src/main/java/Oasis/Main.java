@@ -1,5 +1,4 @@
 import Oasis.*;
-
 void main() {
 
     System.out.println("Hello World!");
@@ -9,6 +8,7 @@ void main() {
     Real R0 = new Real(0);
     Real R1 = new Real(1);
     Real R2 = new Real(2);
+    Real R4 = new Real(4);
 
     System.out.println("Real 0 == Real 1?");
     assert (!R0.Equals(R1));
@@ -86,7 +86,19 @@ void main() {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     System.out.println("\nTesting Division:");
-
+    Divide<Real, Real> d1 = new Divide<>(R1, R1);
+    System.out.println("1/1=1?");
+    assert (((Real)d1.Simplify()).Equals(R1));
+    System.out.println("true.");
+    Divide<Real, Real> d2 = new Divide<>(R1, R0);
+    Undefined undefined = new Undefined();
+    System.out.println("1/0=Undefined?");
+    assert (((Real)d2.Simplify()).Equals(undefined));
+    System.out.println("true.");
+    Divide<Real, Real> d3 = new Divide<>(R4, R2);
+    System.out.println("4/2=2?");
+    assert (((Real)d3.Simplify()).Equals(R2));
+    System.out.println("true.");
 
 
 }

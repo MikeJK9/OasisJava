@@ -20,6 +20,10 @@ enum ExpressionCategory {
 
 public abstract class Expression
 {
+    protected Expression(ExpressionType type, ExpressionCategory cat) {
+        this.Type = type;
+        this.Cat = cat;
+    }
     ExpressionType Type = ExpressionType.None;
     ExpressionCategory Cat = ExpressionCategory.None;
     //abstract functions

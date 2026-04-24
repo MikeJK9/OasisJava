@@ -1,12 +1,15 @@
 package Oasis;
 
 public class Imaginary extends Expression{
-    ExpressionType Type = ExpressionType.Imaginary;
-    ExpressionCategory Cat = ExpressionCategory.UnExp;
+
     public Imaginary(){
+        super(ExpressionType.Imaginary, ExpressionCategory.UnExp);
+
         //todo- constructor
     }
     public Imaginary(Imaginary other){
+        super(ExpressionType.Imaginary, ExpressionCategory.UnExp);
+
         //todo- copy constructor
     }
 

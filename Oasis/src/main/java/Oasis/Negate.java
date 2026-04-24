@@ -1,16 +1,19 @@
 package Oasis;
 
 public class Negate<OperandT extends Expression> extends UnaryExpression<Negate<OperandT>, OperandT>{
-    ExpressionType Type = ExpressionType.Negate;
-    ExpressionCategory Cat = ExpressionCategory.UnExp;
-    Negate(){
 
+    Negate(){
+        super(ExpressionType.Negate, ExpressionCategory.UnExp);
     }
     Negate(Negate<OperandT> other){
+        super(ExpressionType.Negate, ExpressionCategory.UnExp);
         setOperand(other.getOperand());
+
     }
     public Negate(OperandT operand){
+        super(ExpressionType.Negate, ExpressionCategory.UnExp);
         setOperand(operand);
+
     }
 
     @Override

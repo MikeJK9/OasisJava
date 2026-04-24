@@ -1,33 +1,15 @@
 package Oasis;
 
-public class UnaryExpression<DerivedT extends Expression, OpT extends Expression>
-        extends Expression{
-    private OpT operand;
-    UnaryExpression(){
+public class EulerNumber extends Expression{
+
+    EulerNumber(){
+        super(ExpressionType.EulerNumber, ExpressionCategory.UnExp);
 
     }
-    UnaryExpression(UnaryExpression other){
-        if(other.HasOperand()){
-            setOperand((OpT) other.operand);
-        }
-    }
-
-    OpT getOperand() {
-        return operand;
-    }
-    void setOperand(OpT e) {
-        operand = e;
-    }
-    boolean HasOperand(){
-        return operand!=null;
-    }
-
-
-    //TODO: implement the following
 
     @Override
     public Expression Copy() {
-        return null;
+        return new EulerNumber();
     }
 
     @Override
@@ -37,13 +19,7 @@ public class UnaryExpression<DerivedT extends Expression, OpT extends Expression
 
     @Override
     public boolean Equals(Expression other) {
-        if(other.getType() != getType()){
-            return false;
-        }
-
-        Expression otherGeneralized = other.Generalize();
-        UnaryExpression<DerivedT, OpT> otherUnaryGeneralized = (UnaryExpression<DerivedT, OpT>)otherGeneralized;
-        return operand == otherUnaryGeneralized.operand;
+        return false;
     }
 
     @Override

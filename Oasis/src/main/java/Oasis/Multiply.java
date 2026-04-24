@@ -1,11 +1,10 @@
 package Oasis;
 import Oasis.Methods;
 public class Multiply <MultiplicandT extends Expression, MultiplierT extends Expression> extends BinaryExpression<Multiply<?,?>, MultiplicandT, MultiplierT> {
-    ExpressionType Type = ExpressionType.Multiply;
-    ExpressionCategory Cat = ExpressionCategory.BinExp;
 
     public Multiply(MultiplicandT mostSigOp, MultiplierT leastSigOp) {
-        super(mostSigOp, leastSigOp);
+        super(mostSigOp, leastSigOp, ExpressionType.Multiply, ExpressionCategory.BinExp);
+
     }
     Multiply(BinaryExpression<?, ? extends MultiplicandT, ? extends MultiplierT> binExp){
         super(binExp);
@@ -29,14 +28,14 @@ public class Multiply <MultiplicandT extends Expression, MultiplierT extends Exp
         Multiply<Expression,Expression> SimplifiedMult = new Multiply<Expression,Expression>(SimplifiedMultiplicand, SimplifiedMultiplier);
 
         Methods<UnaryExpression<Expression, Expression>, BinaryExpression<Expression, Expression, Expression>> m = new Methods<>();
-        BinaryExpression<Expression, Real, Real> realCase = m.recursiveCast(SimplifiedMult, ExpressionCategory.BinExp.value);
+        BinaryExpression<?, Real, Real> realCase = m.recursiveCast(SimplifiedMult, Real.class, Real.class);
         if(realCase != null){
             Real multiplicand = realCase.getMostSigOp();
             Real multiplier = realCase.getLeastSigOp();
             return new Real(multiplicand._value*multiplier._value);
         }
 
-        BinaryExpression<Expression, Real, Expression> zeroCase = m.recursiveCast(SimplifiedMult, ExpressionCategory.BinExp.value);
+        BinaryExpression<?, Real, Expression> zeroCase = m.recursiveCast(SimplifiedMult, Real.class, Expression.class);
         if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
             return new Real(0);
         }
@@ -60,6 +59,7 @@ public class Multiply <MultiplicandT extends Expression, MultiplierT extends Exp
         return this;
         //simplify expressions and combine like terms:
     }
+
 
 }
 

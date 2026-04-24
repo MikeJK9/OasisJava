@@ -1,33 +1,26 @@
 package Oasis;
 
-public class Pi extends Expression{
-    ExpressionType Type = ExpressionType.Pi;
-    ExpressionCategory Cat = ExpressionCategory.UnExp;
-    public Pi(){
-
-    }
-    public Pi(Expression e){
-
-    }
-    public double getValue(){
-        return Math.PI;
-    }
-
-    @Override
-    public boolean Equals(Expression other){
-        return other.getType().equals(ExpressionType.Pi);
+public class LeafExpression <DerivedT> extends Expression{
+    protected LeafExpression(ExpressionType type, ExpressionCategory cat) {
+        super(type, cat);
     }
 
     @Override
     public Expression Copy() {
+        //TODO
         return null;
     }
 
     @Override
     public Expression Differentiate(Expression differentiationVariable) {
-        return null;
+        return Generalize().Differentiate(differentiationVariable);
     }
 
+    @Override
+    public boolean Equals(Expression other) {
+        //TODO
+        return false;
+    }
 
     @Override
     public long getCategory() {
@@ -46,57 +39,40 @@ public class Pi extends Expression{
 
     @Override
     public Expression Integrate(Expression integrationVariable) {
-        return null;
+        return Generalize().Integrate(integrationVariable);
     }
 
     @Override
     public Expression IntegrateWithBounds(Expression variable, Expression lower, Expression upper) {
-        return null;
+        return Generalize().IntegrateWithBounds(variable, lower, upper);
     }
 
     @Override
     public Expression Simplify() {
+        //TODO
         return null;
     }
 
     @Override
     public boolean StructurallyEquivalent(Expression other) {
-        return false;
+        return this.getType().equals(other.getType());
     }
 
     @Override
     public Expression Substitute(Expression var, Expression val) {
-        return null;
+        return this.Copy();
     }
 
     @Override
     protected Visit AcceptInternal(Visitor visitor) {
+        Expression Generalized = Generalize();
+        /*
+        TODO: implement me!  DerivedT and Visit needed
+        const auto generalized = Generalize();
+        const auto& derivedGeneralized = dynamic_cast<const DerivedT&>(*generalized);
+        return visitor.Visit(derivedGeneralized);
+
+         */
         return null;
     }
-
-
-    /*
-
-public:
-    Pi() = default;
-    Pi(const Pi& other) = default;
-
-    [[nodiscard]] auto Equals(const Expression& other) const -> bool final;
-
-    EXPRESSION_TYPE(Pi)
-    EXPRESSION_CATEGORY(UnExp)
-
-    static auto GetValue() -> double;
-};
-
-    auto Pi::Equals(const Expression& other) const -> bool
-{
-    return other.Is<Pi>() == dynamic_cast<const Pi&>(other).Is<Pi>();
-}
-
-auto Pi::GetValue() -> double
-{
-    return std::numbers::pi;
-}
-     */
 }

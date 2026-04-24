@@ -1,11 +1,11 @@
 package Oasis;
 import Oasis.Methods;
 public class Divide <DividendT extends Expression, DivisorT extends Expression> extends BinaryExpression<Multiply<?,?>, DividendT, DivisorT> {
-    ExpressionType Type = ExpressionType.Divide;
-    ExpressionCategory Cat = ExpressionCategory.BinExp;
+
 
     public Divide(DividendT mostSigOp, DivisorT leastSigOp) {
-        super(mostSigOp, leastSigOp);
+        super(mostSigOp, leastSigOp, ExpressionType.Divide, ExpressionCategory.BinExp);
+
     }
     Divide(BinaryExpression<?, ? extends DividendT, ? extends DivisorT> binExp){
         super(binExp);
@@ -29,7 +29,7 @@ public class Divide <DividendT extends Expression, DivisorT extends Expression> 
         Multiply<Expression,Expression> SimplifiedDiv = new Multiply<Expression,Expression>(SimplifiedDividend, SimplifiedDivisor);
 
         Methods<UnaryExpression<Expression, Expression>, BinaryExpression<Expression, Expression, Expression>> m = new Methods<>();
-        BinaryExpression<Expression, Real, Real> realCase = m.recursiveCast(SimplifiedDiv, ExpressionCategory.BinExp.value);
+        BinaryExpression<?, Real, Real> realCase = m.recursiveCast(SimplifiedDiv, Real.class, Real.class);
         if(realCase != null){
             Real dividend = realCase.getMostSigOp();
             Real divisor = realCase.getLeastSigOp();
@@ -39,7 +39,7 @@ public class Divide <DividendT extends Expression, DivisorT extends Expression> 
             return new Real(dividend._value/divisor._value);
         }
 
-        BinaryExpression<Expression, Real, Expression> zeroCase = m.recursiveCast(SimplifiedDiv, ExpressionCategory.BinExp.value);
+        BinaryExpression<?, Real, Expression> zeroCase = m.recursiveCast(SimplifiedDiv, Real.class, Expression.class);
         if(zeroCase != null && zeroCase.getMostSigOp()._value == 0){
             return new Real(0);
         }

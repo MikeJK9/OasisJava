@@ -1,12 +1,13 @@
 package Oasis;
 
 public class Real extends Expression{
-    ExpressionType Type = ExpressionType.Real;
-    ExpressionCategory Cat = ExpressionCategory.UnExp;
+
 
     double _value;
     public Real(double value){
+        super(ExpressionType.Real, ExpressionCategory.UnExp);
         _value = value;
+
     }
     public Real Differentiate(){
         return new Real(0);
@@ -14,8 +15,12 @@ public class Real extends Expression{
 
     @Override
     public boolean Equals(Expression other){
+        System.out.println("Checking equality of reals");
         if(other instanceof Real){
+            System.out.println(((Real)other)._value + " is equal to " +_value);
             return ((Real)other)._value == _value;
+        } else if (other instanceof Undefined) {
+            return _value == Float.MAX_VALUE;
         }
         return false;
     }
@@ -25,7 +30,7 @@ public class Real extends Expression{
 
     @Override
     public Expression Copy() {
-        return null;
+        return new Real(_value);
     }
 
     @Override
@@ -35,7 +40,7 @@ public class Real extends Expression{
 
     @Override
     public Expression Generalize() {
-        return null;
+        return this;
     }
 
     //todo: finish integrate
@@ -50,7 +55,7 @@ public class Real extends Expression{
 
     @Override
     public Expression Simplify() {
-        return null;
+        return this;
     }
 
     @Override

@@ -4,18 +4,26 @@ public class BinaryExpression<DerivedT extends Expression,
         MostSigOpT extends Expression, LeastSigOpT extends Expression> extends Expression{
     private MostSigOpT MostSigOp;
     private LeastSigOpT LeastSigOp;
-    ExpressionType Type = ExpressionType.None;
-    ExpressionCategory Cat = ExpressionCategory.BinExp;
+
+    protected BinaryExpression(MostSigOpT mostSigOp, LeastSigOpT leastSigOp, ExpressionType type, ExpressionCategory cat) {
+        super(type, cat);
+        setMostSigOp(mostSigOp);
+        setLeastSigOp(leastSigOp);
+    }
+
     BinaryExpression(){
+        super(ExpressionType.None, ExpressionCategory.BinExp);
 
     }
     BinaryExpression(MostSigOpT mostSigOp, LeastSigOpT leastSigOp)
     {
+        super(ExpressionType.None, ExpressionCategory.BinExp);
         setMostSigOp(mostSigOp);
         setLeastSigOp(leastSigOp);
     }
     BinaryExpression(BinaryExpression<?, ? extends MostSigOpT, ? extends LeastSigOpT> binExp)
     {
+        super(ExpressionType.None, ExpressionCategory.BinExp);
         setMostSigOp(binExp.MostSigOp);
         setLeastSigOp(binExp.LeastSigOp);
     }
@@ -52,28 +60,23 @@ public class BinaryExpression<DerivedT extends Expression,
 
     @Override
     public boolean Equals(Expression other) {
-        if(other.getType() != getType()){
-            return false;
+        if (!(other instanceof BinaryExpression<?,?,?> otherBin)) return false;
+        if (other.getType() != getType()) return false;
+
+        if(!(getCategory() == ExpressionCategory.Commutative.value)) {
+            return getMostSigOp().Equals(otherBin.getMostSigOp()) &&
+                    getLeastSigOp().Equals(otherBin.getLeastSigOp());
         }
-
-        Expression otherGeneralized = other.Generalize();
-
-        return false;
-    }
-
-    @Override
-    public long getCategory() {
-        return 0;
-    }
-
-    @Override
-    public ExpressionType getType() {
-        return null;
+        boolean equal = (getMostSigOp().Equals(otherBin.getMostSigOp()) &&
+                getLeastSigOp().Equals(otherBin.getLeastSigOp()) ) ||
+                (getMostSigOp().Equals(otherBin.getLeastSigOp()) &&
+                        getLeastSigOp().Equals(otherBin.getMostSigOp()));
+        return equal;
     }
 
     @Override
     public Expression Generalize() {
-        return null;
+        return this;
     }
 
     @Override
